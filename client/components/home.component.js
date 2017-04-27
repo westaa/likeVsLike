@@ -11,7 +11,8 @@ function homeController($http, apiService, $stateParams, $state) {
   this.$onInit = onInit;
 
   function onInit() {
+
     this.NBAData = apiService.getNBAMatchups();
-    console.log(this.NBAData);
   }
+  
 }
