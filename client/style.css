@@ -8,3 +8,8 @@ p.help-block{
   margin-right: auto
   border: solid thin black;
 }
+h6.help-block{
+  width: 60%;
+  margin-left: auto;
+  margin-right: auto;
+}
