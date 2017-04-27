@@ -1,0 +1,19 @@
+<h1 class="text-center">Like vs. Like</h1>
+<h6 class="help-block text-center">Select a matchup below and receive data on how each team has performed against teams with similar winning percentages this NBA season.</h6>
+
+<hr>
+<span>
+
+  <div><label>Date</label><h6 ng-repeat="date in $ctrl.NBAData.$$state.value.date track by $index" ng-show="$index % 2 === 0" ng-show="$index % 2 === 0">{{date | dateFilter}}</h6></div>
+  <div><label>Spread</label><h6 ng-repeat="pointSpread in $ctrl.NBAData.$$state.value.pointSpread track by $index" ng-show="$index % 2 === 0" ng-show="$index % 2 === 0">{{pointSpread}}</h6></div>
+  <div> <label>Total</label><h6 ng-repeat="total in $ctrl.NBAData.$$state.value.total track by $index" ng-show="$index % 2 === 0">{{total}}</h6></div>
+  <div><label>Home Team</label><h6 ng-repeat="team in $ctrl.NBAData.$$state.value.team track by $index" ng-show="$index % 2 === 0">{{team}}</h6></div>
+  <div><label>Opponent</label><h6 ng-repeat="oTeam in $ctrl.NBAData.$$state.value.oTeam track by $index" ng-show="$index % 2 === 0">{{oTeam}}</h6></div>
+  <div>  <label>Rest</label><h6 ng-repeat="teamRest in $ctrl.NBAData.$$state.value.teamRest track by $index" ng-show="$index % 2 === 0">{{teamRest}}</h6></div>
+  <div> <label>Opp. Rest</label><h6 ng-repeat="oTeamRest in $ctrl.NBAData.$$state.value.oTeamRest track by $index" ng-show="$index % 2 === 0">{{oTeamRest}}</h6></div>
+  <div><label>Analyze</label><h6 ng-repeat="team in $ctrl.NBAData.$$state.value.team track by $index" ng-show="$index % 2 === 0"><a
+   ui-sref="home.likeVsLike({team: team, oTeam: $ctrl.NBAData.$$state.value.oTeam[$index]})">Like vs. Like</a></h6></div>
+</span>
+<hr>
+
+<ui-view></ui-view>

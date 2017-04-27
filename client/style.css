@@ -1,0 +1,10 @@
+span {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+p.help-block{
+  margin-left: auto;
+  margin-right: auto
+  border: solid thin black;
+}

@@ -1,0 +1,27 @@
+{
+  "name": "like-vs-like",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "express": "^4.15.2",
+    "favicon": "0.0.2",
+    "request-promise": "^4.2.0",
+    "unirest": "^0.5.1"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/westaa/likeVsLike.git"
+  },
+  "bugs": {
+    "url": "https://github.com/westaa/likeVsLike/issues"
+  },
+  "homepage": "https://github.com/westaa/likeVsLike#readme",
+  "description": ""
+}

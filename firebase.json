@@ -1,0 +1,8 @@
+{
+  "database": {
+    "rules": "firebase use --add likevslike"
+  },
+  "hosting": {
+    "public": "public"
+  }
+}
