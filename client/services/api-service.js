@@ -1,6 +1,7 @@
 app.service('apiService', function($http) {
 
   return {
+
     getNBAMatchups: function () {
      return $http({
         method: 'GET',
@@ -89,7 +90,6 @@ app.service('apiService', function($http) {
       var avgMargin = this.getAvgDiffTwoArr(teamPoints, oPoints);
       return avgMargin + this.getAvgSingleArr(pointSpread);
     },
-
 
     getAvgDiffTwoArr: function (arr, arr2) {
       if (typeof arr !== 'object'){
