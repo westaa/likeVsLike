@@ -60,16 +60,25 @@ router.get('/nba/matchup/:team/:oTeam',
     rp.get('http://api.sportsdatabase.com/nba/query.JSON?sdql=WP%40season%3D2016%20and%20team%3D' + req.params.oTeam + '&output=json&api_key=guest').then(function(data) {
     var x = data.replace(/\'/g, '"');
     var teamWP  = JSON.parse(x).groups[0].columns[0][0];
-      var high = teamWP + 10;
-      var low = teamWP - 10;
-      rp.get('http://api.sportsdatabase.com/nba/query.JSON?sdql=' + 'line%2Ctotal%2Cpoints%2Cteam%2Co%3Ateam%2Co%3Apoints%2Csite%2Crest%2Co%3Arest%2Cdate%40season%3D2016' + '%20and%20date%3E20170219' + '%20and%20site%3D' + isHomeTeam(req.params.team) +
-      '%20and%20team%3D' + req.params.team + '%20and%20' + 'o%3AWP%3E' + low + '%20and%20' + 'o%3AWP%3C' + high + '&output=json&api_key=guest').then(function(data) {
-        var x = data.replace(/\'/g, '"');
-        var teamData = JSON.parse(x).groups[0].columns;
-        var teamSite = teamData[6][teamData[6].length - 1];
-        res.send(teamData);
-      });
-    })
+    var high = teamWP + 10;
+    var low = teamWP - 10;
+    if (teamWP >= 60.0) {
+      high = teamWP + 10;
+      low = teamWP -15;
+    }
+    if (teamWP <= 40) {
+      high = teamWP + 15;
+      low = teamWP - 10;
+    }
+    console.log(high, low);
+    rp.get('http://api.sportsdatabase.com/nba/query.JSON?sdql=' + 'line%2Ctotal%2Cpoints%2Cteam%2Co%3Ateam%2Co%3Apoints%2Csite%2Crest%2Co%3Arest%2Cdate%40season%3D2016' + '%20and%20date%3E20170219' + '%20and%20site%3D' + isHomeTeam(req.params.team) +
+    '%20and%20team%3D' + req.params.team + '%20and%20' + 'o%3AWP%3E' + low + '%20and%20' + 'o%3AWP%3C' + high + '&output=json&api_key=guest').then(function(data) {
+      var x = data.replace(/\'/g, '"');
+      var teamData = JSON.parse(x).groups[0].columns;
+      var teamSite = teamData[6][teamData[6].length - 1];
+      res.send(teamData);
+    });
+  })
 });
 
 app.get('*', function(req, res) {
