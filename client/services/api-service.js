@@ -23,7 +23,7 @@ app.service('apiService', function($http) {
       })
     },
 
-    uniformArrSize: function (data){
+    uniformArrSize: function (data) {
       var self = this;
       for(var x in data) {
         if(data[x].length > self.removeNullArrValues(data[2]).length) {
@@ -84,7 +84,7 @@ app.service('apiService', function($http) {
        return elem !== 'no data' ;
      }).length * 100) / 100;
      return avg;
-   },
+    },
 
     getAvgATSPerformance: function(teamPoints, oPoints, pointSpread) {
       var avgMargin = this.getAvgDiffTwoArr(teamPoints, oPoints);
@@ -129,7 +129,7 @@ app.service('apiService', function($http) {
          return elem != 'no data'
        }).length * 100) / 100;
        return avg;
-    },
+    }
 
   }
 
