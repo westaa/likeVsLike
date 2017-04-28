@@ -1,6 +1,6 @@
 <h5 class="text-center"><a href="/">Home</a></h5>
 <div>
-  <p class="help-block text-center"><b>{{$ctrl.team}}</b> performance over the 2016-2017 season against teams with a winning percentage within .100 of the {{$ctrl.oTeam}}'s winning percentage.</p>
+  <p class="help-block text-center"><b>{{$ctrl.team}}</b> performance in <b>{{$ctrl.matchupData.$$state.value.teamSite[0]}}</b> games since February 19,2017 against teams with a winning percentage within .100 of the {{$ctrl.oTeam}}'s winning percentage.</p>
   <br>
   <div>
     <span class="text-center">
@@ -23,8 +23,9 @@
     <div><label>Opp. Rest</label><h6 ng-repeat="oTeamRest in $ctrl.matchupData.$$state.value.oTeamRest track by $index">{{oTeamRest}}</h6></div>
   </span>
   <hr>
+
   <h5 class="text-center"><a href="/">Home</a></h5>
-  <p class="help-block text-center"><b>{{$ctrl.oTeam}}</b> performance over the 2016-2017 season against teams with a winning percentage within .100 of the {{$ctrl.team}}'s winning percentage.</p>
+  <p class="help-block text-center"><b>{{$ctrl.oTeam}}</b> performance in <b>{{$ctrl.oMatchupData.$$state.value.teamSite[0]}}</b> games since February 19,2017 against teams with a winning percentage within .100 of the {{$ctrl.team}}'s winning percentage.</p>
   <br>
   <div>
     <span class="text-center">

@@ -8,11 +8,36 @@ var monthText = new Date().toString().split(' ')[1];
 var monthArr = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 var numberMonthArr = ['01','02','03','04','05','06','07','08','09','10','11','12'];
 var month = [];
+var teamSites = {
+  home: [],
+  away: []
+};
 
 function monthFinder () {
   for (var i = 0; i < monthArr.length; i++) {
     if (monthArr[i] == monthText) {
       month.push(numberMonthArr[i]);
+    }
+  }
+}
+
+function siteFinder (data) {
+  for (var i = 0; i < data.groups[0].columns[4].length; i++) {
+    if(i % 2 === 0) {
+      teamSites.home.push(data.groups[0].columns[3][i]);
+    }
+    else {
+      teamSites.away.push(data.groups[0].columns[3][i]);
+    }
+  }
+}
+
+function isHomeTeam (team) {
+  for (var i = 0; i < teamSites.home.length; i++) {
+    if (teamSites.home[i] === team) {
+      return 'home'
+    } else if (teamSites.away[i] === team) {
+      return 'away'
     }
   }
 }
@@ -24,21 +49,24 @@ router.get('/nba', function (req, res, next) {
   '&output=json&api_key=guest').then(function(data){
     var x = data.replace(/\'/g, '"');
     var y  = JSON.parse(x);
+    siteFinder(y);
     res.send(y);
   })
 });
 
 router.get('/nba/matchup/:team/:oTeam',
   function(req, res, next) {
+    console.log(isHomeTeam(req.params.team));
     rp.get('http://api.sportsdatabase.com/nba/query.JSON?sdql=WP%40season%3D2016%20and%20team%3D' + req.params.oTeam + '&output=json&api_key=guest').then(function(data) {
     var x = data.replace(/\'/g, '"');
     var teamWP  = JSON.parse(x).groups[0].columns[0][0];
       var high = teamWP + 10;
       var low = teamWP - 10;
-      rp.get('http://api.sportsdatabase.com/nba/query.JSON?sdql=' + 'line%2Ctotal%2Cpoints%2Cteam%2Co%3Ateam%2Co%3Apoints%2Csite%2Crest%2Co%3Arest%2Cdate%40season%3D2016' +
+      rp.get('http://api.sportsdatabase.com/nba/query.JSON?sdql=' + 'line%2Ctotal%2Cpoints%2Cteam%2Co%3Ateam%2Co%3Apoints%2Csite%2Crest%2Co%3Arest%2Cdate%40season%3D2016' + '%20and%20date%3E20170219' + '%20and%20site%3D' + isHomeTeam(req.params.team) +
       '%20and%20team%3D' + req.params.team + '%20and%20' + 'o%3AWP%3E' + low + '%20and%20' + 'o%3AWP%3C' + high + '&output=json&api_key=guest').then(function(data) {
         var x = data.replace(/\'/g, '"');
         var teamData = JSON.parse(x).groups[0].columns;
+        var teamSite = teamData[6][teamData[6].length - 1];
         res.send(teamData);
       });
     })
