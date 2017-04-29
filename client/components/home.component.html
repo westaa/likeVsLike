@@ -1,4 +1,4 @@
-<h1 class="text-center">LikeVLike</h1>
+<h1 class="text-center">likeVlike</h1>
 <h6 class="help-block text-center">Select a matchup below and receive data on each team's performance against teams with winning percentages similar to their current opponent since February 19, 2017 (Allstar Break), and on the same court (home or away) which their current matchup will be played.</h6>
 
 <hr>
@@ -12,7 +12,7 @@
   <div>  <label>Rest</label><h6 ng-repeat="teamRest in $ctrl.NBAData.$$state.value.teamRest track by $index" ng-show="$index % 2 === 0">{{teamRest}}</h6></div>
   <div> <label>Opp. Rest</label><h6 ng-repeat="oTeamRest in $ctrl.NBAData.$$state.value.oTeamRest track by $index" ng-show="$index % 2 === 0">{{oTeamRest}}</h6></div>
   <div><label>Analyze</label><h6 ng-repeat="team in $ctrl.NBAData.$$state.value.team track by $index" ng-show="$index % 2 === 0"><a
-   ui-sref="home.likeVsLike({team: team, oTeam: $ctrl.NBAData.$$state.value.oTeam[$index]})">Like vs. Like</a></h6></div>
+   ui-sref="home.likeVsLike({team: team, oTeam: $ctrl.NBAData.$$state.value.oTeam[$index]})">likeVlike</a></h6></div>
 </span>
 <hr>
 
