@@ -70,7 +70,7 @@ router.get('/nba/matchup/:team/:oTeam',
       high = teamWP + 15;
       low = teamWP - 10;
     }
-    if (teamWP >= 74.0) {
+    if (teamWP >= 70.0) {
       high = teamWP + 10;
       low = teamWP -22;
     }
