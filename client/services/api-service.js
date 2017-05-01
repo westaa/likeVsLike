@@ -81,7 +81,7 @@ app.service('apiService', function($http) {
      }).reduce(function(a,b){
        return a + b;
      })/arr.filter(function(elem, ind) {
-       return elem !== 'no data' ;
+       return elem !== 'no data' || elem !== null ;
      }).length * 100) / 100;
      return avg;
     },
@@ -106,7 +106,7 @@ app.service('apiService', function($http) {
        }).reduce(function(a,b) {
          return a + b
        }))/arr.filter(function(elem, ind) {
-         return elem != 'no data'
+         return elem != 'no data' || elem !== null;
        }).length * 100) / 100;
        return avg;
     },
@@ -126,7 +126,7 @@ app.service('apiService', function($http) {
        }).reduce(function(a,b) {
          return a + b
        }))/arr.filter(function(elem, ind) {
-         return elem != 'no data'
+         return elem != 'no data' || elem !== null;
        }).length * 100) / 100;
        return avg;
     }
