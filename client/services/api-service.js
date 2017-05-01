@@ -27,7 +27,7 @@ app.service('apiService', function($http) {
       var self = this;
       for(var x in data) {
         if(data[x].length > self.removeNullArrValues(data[2]).length) {
-          data[x].pop(data[x][data[2].length])
+          data[x].pop()
         }
       }
       return data
