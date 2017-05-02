@@ -56,19 +56,22 @@ router.get('/nba', function (req, res, next) {
 
 router.get('/nba/matchup/:team/:oTeam',
   function(req, res, next) {
-    console.log(isHomeTeam(req.params.team));
     rp.get('http://api.sportsdatabase.com/nba/query.JSON?sdql=WP%40season%3D2016%20and%20team%3D' + req.params.oTeam + '&output=json&api_key=guest').then(function(data) {
     var x = data.replace(/\'/g, '"');
     var teamWP  = JSON.parse(x).groups[0].columns[0][0];
     var high = teamWP + 10;
     var low = teamWP - 10;
-    if (teamWP >= 60.0) {
-      high = teamWP + 10;
-      low = teamWP -15;
-    }
     if (teamWP <= 40) {
       high = teamWP + 15;
       low = teamWP - 10;
+    }
+    if (teamWP >= 60.0) {
+      high = teamWP + 10;
+      low = teamWP -12.5;
+    }
+    if (teamWP >= 65.0) {
+      high = teamWP + 10;
+      low = teamWP -15;
     }
     if (teamWP >= 70.0) {
       high = teamWP + 10;

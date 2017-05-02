@@ -42,10 +42,7 @@ app.service('apiService', function($http) {
 
     getAvgSpread(spreadArr, pointsArr) {
       var self = this;
-      if (spreadArr.length > self.filterNull(pointsArr).length) {
-        spreadArr.pop();
-        self.getAvgSpread(spreadArr, pointsArr);
-      };
+      var spreadArr = self.uniformArrSize(pointsArr, spreadArr);
       return self.getArrAvg(spreadArr);
     },
 
