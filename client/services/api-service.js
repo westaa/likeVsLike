@@ -85,11 +85,11 @@ app.service('apiService', function($http) {
     var arr = arr;
     var avg = Math.round(arr.filter(
       function(elem, ind) {
-      return elem !== 'no data' ;
+      return elem !== 'no data' && elem !== null;
      }).reduce(function(a,b){
        return a + b;
      })/arr.filter(function(elem, ind) {
-       return elem !== 'no data' || elem !== null ;
+       return elem !== 'no data' && elem !== null ;
      }).length * 100) / 100;
      return avg;
     },
@@ -106,15 +106,15 @@ app.service('apiService', function($http) {
       var arr = arr;
       var arr2 = arr2;
       var avg = Math.round((arr.filter(function(elem, ind) {
-        return elem != 'no data'
+        return elem != 'no data' && elem !== null
       }).reduce(function(a,b) {
          return a + b
        }) - arr2.filter(function(elem, ind){
-         return elem !== 'no data'
+         return elem !== 'no data' && elem !== null
        }).reduce(function(a,b) {
          return a + b
        }))/arr.filter(function(elem, ind) {
-         return elem != 'no data' || elem !== null;
+         return elem != 'no data' && elem !== null;
        }).length * 100) / 100;
        return avg;
     },
@@ -126,15 +126,15 @@ app.service('apiService', function($http) {
       var arr = arr;
       var arr2 = arr2;
       var avg = Math.round((arr.filter(function(elem, ind) {
-        return elem != 'no data'
+        return elem != 'no data' && elem !== null
       }).reduce(function(a,b) {
          return a + b
        }) + arr2.filter(function(elem, ind){
-         return elem !== 'no data'
+         return elem !== 'no data' && elem !== null
        }).reduce(function(a,b) {
          return a + b
        }))/arr.filter(function(elem, ind) {
-         return elem != 'no data' || elem !== null;
+         return elem != 'no data' && elem !== null;
        }).length * 100) / 100;
        return avg;
     }
