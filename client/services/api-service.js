@@ -40,6 +40,27 @@ app.service('apiService', function($http) {
       return average;
     },
 
+    filterNull(arr){
+      return arr.filter(function(elem) {
+        return elem !== null
+      })
+    },
+
+    getArrAvg (arr) {
+      return arr.reduce(function(a,b){
+        return a + b;
+      })/arr.length;
+    },
+
+    getAvgSpread(spreadArr, pointsArr) {
+      var self = this;
+      if (spreadArr.length > self.filterNull(pointsArr).length) {
+        spreadArr.pop();
+        self.getAvgSpread(spreadArr, pointsArr);
+      };
+      return self.getArrAvg(spreadArr);
+    },
+
     getMatchupData: function (team, oTeam) {
       var self = this;
       return $http({
@@ -48,11 +69,10 @@ app.service('apiService', function($http) {
         url: '/api/nba/matchup/' + team + '/' + oTeam
       }).then(function(data) {
         var data = data.data;
-
         var aggregateData = {
-          averageTotal: self.getAvgSingleArr(data[1]),
+          averageTotal: self.getArrAvg(self.filterNull(data[1])),
           averagePoints: self.getAvgPointsScored(data[2], data[5]),
-          averageSpread: self.getAvgSingleArr(data[0]),
+          averageSpread: self.getAvgSpread(data[0], data[2]),
           averageATSPerformance: self.getAvgATSPerformance(data[2], data[5], data[0]),
         };
         data = {
