@@ -46,6 +46,12 @@ app.service('apiService', function($http) {
       return self.getArrAvg(spreadArr);
     },
 
+    getAvgTotal (totalArr, pointsArr) {
+      var self = this;
+      var totalArr = self.uniformArrSize(pointsArr, totalArr);
+      return self.getArrAvg(self.filterNull(totalArr));
+    },
+
     getMatchupData: function (team, oTeam) {
       var self = this;
       return $http({
@@ -55,7 +61,7 @@ app.service('apiService', function($http) {
       }).then(function(data) {
         var data = data.data;
         var aggregateData = {
-          averageTotal: self.getArrAvg(self.filterNull(data[1])),
+          averageTotal: self.getAvgTotal(data[1], data[2]),
           averagePoints: self.getAvgPointsScored(data[2], data[5]),
           averageSpread: self.getAvgSpread(data[0], data[2]),
           averageATSPerformance: self.getAvgATSPerformance(data[2], data[5], data[0]),
