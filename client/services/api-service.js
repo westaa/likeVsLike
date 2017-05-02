@@ -24,20 +24,8 @@ app.service('apiService', function($http) {
     },
 
     getAvgPointsScored (points, oPoints) {
-      var teamPoints = points.filter(function(elem) {
-        return elem !== null;
-      }).reduce(function(a,b) {
-        return a + b;
-      });
-      var oTeamPoints = oPoints.filter(function(elem) {
-        return elem !== null;
-      }).reduce(function(a,b) {
-        return a + b;
-      });
-      var average = (teamPoints + oTeamPoints)/points.filter(function(elem) {
-        return elem !== null;
-      }).length;
-      return average;
+      var self = this;
+      return self.getArrAvg(self.filterNull(points)) + self.getArrAvg(self.filterNull(oPoints))
     },
 
     filterNull(arr){
@@ -92,73 +80,20 @@ app.service('apiService', function($http) {
       })
     },
 
-    removeNullArrValues: function (arr) {
-      return arr.filter(function(elem, ind) {
-        return elem !== null;
-      })
-    },
-
-    getAvgSingleArr: function (arr) {
-    if (typeof arr !== 'object'){
-      return 'no data';
-    }
-    var arr = arr;
-    var avg = Math.round(arr.filter(
-      function(elem, ind) {
-      return elem !== 'no data' && elem !== null;
-     }).reduce(function(a,b){
-       return a + b;
-     })/arr.filter(function(elem, ind) {
-       return elem !== 'no data' && elem !== null ;
-     }).length * 100) / 100;
-     return avg;
+    uniformArrSize (arr, arr2) {
+      var self = this;
+      if (arr2.length > self.filterNull(arr).length) {
+        arr2.pop();
+        self.uniformArrSize(arr, arr2);
+      }
+      return arr2;
     },
 
     getAvgATSPerformance: function(teamPoints, oPoints, pointSpread) {
-      var avgMargin = this.getAvgDiffTwoArr(teamPoints, oPoints);
-      return avgMargin + this.getAvgSingleArr(pointSpread);
+      var self = this;
+      var pointSpread = self.uniformArrSize(teamPoints, pointSpread);
+      return self.getArrAvg(self.filterNull(teamPoints)) - self.getArrAvg(self.filterNull(oPoints)) + self.getArrAvg(self.filterNull(pointSpread))
     },
-
-    getAvgDiffTwoArr: function (arr, arr2) {
-      if (typeof arr !== 'object'){
-        return 'no data';
-      }
-      var arr = arr;
-      var arr2 = arr2;
-      var avg = Math.round((arr.filter(function(elem, ind) {
-        return elem != 'no data' && elem !== null
-      }).reduce(function(a,b) {
-         return a + b
-       }) - arr2.filter(function(elem, ind){
-         return elem !== 'no data' && elem !== null
-       }).reduce(function(a,b) {
-         return a + b
-       }))/arr.filter(function(elem, ind) {
-         return elem != 'no data' && elem !== null;
-       }).length * 100) / 100;
-       return avg;
-    },
-
-    getAvgSumTwoArr: function (arr, arr2) {
-      if (typeof arr !== 'object'){
-        return 'no data';
-      }
-      var arr = arr;
-      var arr2 = arr2;
-      var avg = Math.round((arr.filter(function(elem, ind) {
-        return elem != 'no data' && elem !== null
-      }).reduce(function(a,b) {
-         return a + b
-       }) + arr2.filter(function(elem, ind){
-         return elem !== 'no data' && elem !== null
-       }).reduce(function(a,b) {
-         return a + b
-       }))/arr.filter(function(elem, ind) {
-         return elem != 'no data' && elem !== null;
-       }).length * 100) / 100;
-       return avg;
-    }
-
   }
 
 });
