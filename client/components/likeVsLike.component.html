@@ -4,9 +4,9 @@
   <br>
   <div>
     <span class="text-center">
-      <h6 class="bg-info">Average Total: {{$ctrl.matchupData.$$state.value.aggregateData.averageTotal}}</h6>
-      <h6 class="bg-info">Average Points Scored: {{$ctrl.matchupData.$$state.value.aggregateData.averagePoints}}</h6>
-      <h6 class="bg-info">Average Spread: {{$ctrl.matchupData.$$state.value.aggregateData.averageSpread}}</h6>
+      <h6 class="bg-info">Average Total: {{$ctrl.matchupData.$$state.value.aggregateData.averageTotal | number: 2}}</h6>
+      <h6 class="bg-info">Average Points Scored: {{$ctrl.matchupData.$$state.value.aggregateData.averagePoints | number: 2}}</h6>
+      <h6 class="bg-info">Average Spread: {{$ctrl.matchupData.$$state.value.aggregateData.averageSpread | number: 2}}</h6>
       <h6 class="bg-info">Average ATS Performance: {{$ctrl.matchupData.$$state.value.aggregateData.averageATSPerformance | number: 2}}</h6>
     </span>
   </div>
@@ -29,9 +29,9 @@
   <br>
   <div>
     <span class="text-center">
-      <h6 class="bg-info">Average Total: {{$ctrl.oMatchupData.$$state.value.aggregateData.averageTotal}}</h6>
-      <h6 class="bg-info">Average Points Scored: {{$ctrl.oMatchupData.$$state.value.aggregateData.averagePoints}}</h6>
-      <h6 class="bg-info">Average Spread: {{$ctrl.oMatchupData.$$state.value.aggregateData.averageSpread}}</h6>
+      <h6 class="bg-info">Average Total: {{$ctrl.oMatchupData.$$state.value.aggregateData.averageTotal | number: 2}}</h6>
+      <h6 class="bg-info">Average Points Scored: {{$ctrl.oMatchupData.$$state.value.aggregateData.averagePoints | number: 2}}</h6>
+      <h6 class="bg-info">Average Spread: {{$ctrl.oMatchupData.$$state.value.aggregateData.averageSpread | number: 2}}</h6>
       <h6 class="bg-info">Average ATS Performance: {{$ctrl.oMatchupData.$$state.value.aggregateData.averageATSPerformance | number: 2}}</h6>
     </span>
   </div>

@@ -23,14 +23,21 @@ app.service('apiService', function($http) {
       })
     },
 
-    uniformArrSize: function (data) {
-      var self = this;
-      for(var x in data) {
-        if(data[x].length > self.removeNullArrValues(data[2]).length) {
-          data[x].pop()
-        }
-      }
-      return data
+    getAvgPointsScored (points, oPoints) {
+      var teamPoints = points.filter(function(elem) {
+        return elem !== null;
+      }).reduce(function(a,b) {
+        return a + b;
+      });
+      var oTeamPoints = oPoints.filter(function(elem) {
+        return elem !== null;
+      }).reduce(function(a,b) {
+        return a + b;
+      });
+      var average = (teamPoints + oTeamPoints)/points.filter(function(elem) {
+        return elem !== null;
+      }).length;
+      return average;
     },
 
     getMatchupData: function (team, oTeam) {
@@ -40,10 +47,11 @@ app.service('apiService', function($http) {
         dataType: 'json',
         url: '/api/nba/matchup/' + team + '/' + oTeam
       }).then(function(data) {
-        data = self.uniformArrSize(data.data);
+        var data = data.data;
+
         var aggregateData = {
           averageTotal: self.getAvgSingleArr(data[1]),
-          averagePoints: self.getAvgSumTwoArr(data[2], data[5]),
+          averagePoints: self.getAvgPointsScored(data[2], data[5]),
           averageSpread: self.getAvgSingleArr(data[0]),
           averageATSPerformance: self.getAvgATSPerformance(data[2], data[5], data[0]),
         };
