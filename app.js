@@ -10,4 +10,11 @@ app.use(express.static(path.join(__dirname, 'client')));
 var api = require('./routes/api')
 app.use('/api', api);
 
+app.set('views', __dirname+'/client');
+app.engine('html', require('ejs').renderFile);
+app.set('view engine', 'html');
+
+app.get('*', function (req, res, next) {
+  res.render('index.html')
+})
 app.listen(process.env.PORT || 3000);
