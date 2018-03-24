@@ -44,7 +44,7 @@ function isHomeTeam (team) {
 
 router.get('/nba', function (req, res, next) {
   monthFinder();
-  rp.get('http://api.sportsdatabase.com/nba/query.JSON?sdql=line%2Ctotal%2Cpoints%2Cteam%2Co%3Ateam%2Co%3Apoints%2Csite%2Crest%2Co%3Arest%2Cdate%40date%3E%3D2017' +
+  rp.get('http://api.sportsdatabase.com/nba/query.JSON?sdql=line%2Ctotal%2Cpoints%2Cteam%2Co%3Ateam%2Co%3Apoints%2Csite%2Crest%2Co%3Arest%2Cdate%40date%3D2018' +
   month[0] + day +
   '&output=json&api_key=guest').then(function(data){
     var x = data.replace(/\'/g, '"');
@@ -56,7 +56,7 @@ router.get('/nba', function (req, res, next) {
 
 router.get('/nba/matchup/:team/:oTeam',
   function(req, res, next) {
-    rp.get('http://api.sportsdatabase.com/nba/query.JSON?sdql=WP%40season%3D2016%20and%20team%3D' + req.params.oTeam + '&output=json&api_key=guest').then(function(data) {
+    rp.get('http://api.sportsdatabase.com/nba/query.JSON?sdql=WP%40season%3D2017%20and%20team%3D' + req.params.oTeam + '&output=json&api_key=guest').then(function(data) {
     var x = data.replace(/\'/g, '"');
     var teamWP  = JSON.parse(x).groups[0].columns[0][0];
     var high = teamWP + 10;
