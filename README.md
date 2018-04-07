@@ -1,3 +1,3 @@
 https://likevlike.herokuapp.com/
 
-Analyze current NBA playoff games using this simple model.
+Analyze current NBA games using this simple model.
