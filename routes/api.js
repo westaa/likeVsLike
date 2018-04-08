@@ -81,10 +81,11 @@ router.get('/nba/matchup/:team/:oTeam',
       high = teamWP + 5;
       low = teamWP -30;
     }
-    rp.get('http://api.sportsdatabase.com/nba/query.JSON?sdql=' + 'line%2Ctotal%2Cpoints%2Cteam%2Co%3Ateam%2Co%3Apoints%2Csite%2Crest%2Co%3Arest%2Cdate%40season%3D2016' + '%20and%20site%3D' + isHomeTeam(req.params.team) +
+    rp.get('http://api.sportsdatabase.com/nba/query.JSON?sdql=' + 'line%2Ctotal%2Cpoints%2Cteam%2Co%3Ateam%2Co%3Apoints%2Csite%2Crest%2Co%3Arest%2Cdate%2CWP%40season%3D2017' + '%20and%20site%3D' + isHomeTeam(req.params.team) +
     '%20and%20team%3D' + req.params.team + '%20and%20' + 'o%3AWP%3E' + low + '%20and%20' + 'o%3AWP%3C' + high + '&output=json&api_key=guest').then(function(data) {
       var x = data.replace(/\'/g, '"');
       var teamData = JSON.parse(x).groups[0].columns;
+      console.log('teamData', teamData);
       var teamSite = teamData[6][teamData[6].length - 1];
       res.send(teamData);
     });
