@@ -76,9 +76,11 @@ app.service('apiService', function($http) {
           teamSite: data[6],
           teamRest: data[7],
           oTeamRest: data[8],
-          date: data[9]
+          date: data[9],
+          winningPercentage: data[10]
         };
         data.aggregateData = aggregateData;
+        console.log(data);
         return data
       })
     },
