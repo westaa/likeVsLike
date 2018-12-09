@@ -1,51 +1,51 @@
-<h5 class="text-center"><a href="/">likeVlike</a></h5>
-<div>
-  <h6 class="help-block text-center"><b>{{$ctrl.team}}</b> performance in <b>{{$ctrl.matchupData.$$state.value.teamSite[0]}}</b> games since All-Star break against teams with a winning percentage similar to the <b>{{$ctrl.oTeam}}</b> winning percentage.</h6>
+<h5 class="text-center" ng-show="$ctrl.matchupData.aggregateData.averageTotal || $ctrl.matchupData.aggregateData.oAverageTotal"><a href="/">likeVlike</a></h5>
+<div ng-show="$ctrl.matchupData.aggregateData.averageTotal || $ctrl.matchupData.aggregateData.oAverageTotal">
+  <h6 class="help-block text-center"><b>{{$ctrl.team}}</b> performance in <b>{{$ctrl.matchupData.teamSite[0]}}</b> games since the start of the 2018 season against teams with a winning percentage similar to the <b>{{$ctrl.oTeam}}</b> winning percentage.</h6>
   <br>
   <div>
     <span class="text-center">
-      <h6 class="bg-info">Average Total: {{$ctrl.matchupData.$$state.value.aggregateData.averageTotal | number: 2}}</h6>
-      <h6 class="bg-info">Average Points Scored: {{$ctrl.matchupData.$$state.value.aggregateData.averagePoints | number: 2}}</h6>
-      <h6 class="bg-info">Average Spread: {{$ctrl.matchupData.$$state.value.aggregateData.averageSpread | number: 2}}</h6>
-      <h6 class="bg-info">Average ATS Performance: {{$ctrl.matchupData.$$state.value.aggregateData.averageATSPerformance | number: 2}}</h6>
+      <h6 class="bg-info">Average Total: {{$ctrl.matchupData.aggregateData.averageTotal | number: 2}}</h6>
+      <h6 class="bg-info">Average Points Scored: {{$ctrl.matchupData.aggregateData.averagePoints | number: 2}}</h6>
+      <h6 class="bg-info">Average Spread: {{$ctrl.matchupData.aggregateData.averageSpread | number: 2}}</h6>
+      <h6 class="bg-info">Average ATS Performance: {{$ctrl.matchupData.aggregateData.averageATSPerformance | number: 2}}</h6>
     </span>
   </div>
   <br>
   <span>
-    <div><label>Date</label><h6 ng-repeat="date in $ctrl.matchupData.$$state.value.date track by $index">{{date | dateFilter}}</h6></div>
-    <div><label>Point Spread</label><h6 ng-repeat="pointSpread in $ctrl.matchupData.$$state.value.pointSpread track by $index">{{pointSpread}}</h6></div>
-    <div><label>Total</label><h6 ng-repeat="total in $ctrl.matchupData.$$state.value.total track by $index">{{total}}</h6></div>
-    <div><label>Points</label><h6 ng-repeat="teamPoints in $ctrl.matchupData.$$state.value.teamPoints track by $index">{{teamPoints}}</h6></div>
-    <div><label>Opponent</label><h6 ng-repeat="oTeam in $ctrl.matchupData.$$state.value.oTeam track by $index">{{oTeam}}</h6></div>
-    <div><label>Opp. Points</label><h6 ng-repeat="oTeamPoints in $ctrl.matchupData.$$state.value.oTeamPoints track by $index">{{oTeamPoints}}</h6></div>
-    <div><label>Site</label><h6 ng-repeat="teamSite in $ctrl.matchupData.$$state.value.teamSite track by $index">{{teamSite}}</h6></div>
-    <div><label>Rest</label><h6 ng-repeat="teamRest in $ctrl.matchupData.$$state.value.teamRest track by $index">{{teamRest}}</h6></div>
-    <div><label>Opp. Rest</label><h6 ng-repeat="oTeamRest in $ctrl.matchupData.$$state.value.oTeamRest track by $index">{{oTeamRest}}</h6></div>
+    <div><label>Date</label><h6 ng-repeat="date in $ctrl.matchupData.date track by $index">{{date | dateFilter}}</h6></div>
+    <div><label>Point Spread</label><h6 ng-repeat="pointSpread in $ctrl.matchupData.pointSpread track by $index">{{pointSpread}}</h6></div>
+    <div><label>Total</label><h6 ng-repeat="total in $ctrl.matchupData.total track by $index">{{total}}</h6></div>
+    <div><label>Points</label><h6 ng-repeat="teamPoints in $ctrl.matchupData.teamPoints track by $index">{{teamPoints}}</h6></div>
+    <div><label>Opponent</label><h6 ng-repeat="oTeam in $ctrl.matchupData.oTeam track by $index">{{oTeam}}</h6></div>
+    <div><label>Opp. Points</label><h6 ng-repeat="oTeamPoints in $ctrl.matchupData.oTeamPoints track by $index">{{oTeamPoints}}</h6></div>
+    <div><label>Site</label><h6 ng-repeat="teamSite in $ctrl.matchupData.teamSite track by $index">{{teamSite}}</h6></div>
+    <div><label>Rest</label><h6 ng-repeat="teamRest in $ctrl.matchupData.teamRest track by $index">{{teamRest}}</h6></div>
+    <div><label>Opp. Rest</label><h6 ng-repeat="oTeamRest in $ctrl.matchupData.oTeamRest track by $index">{{oTeamRest}}</h6></div>
   </span>
   <hr>
 
   <h5 class="text-center"><a href="/">likeVlike</a></h5>
-  <h6 class="help-block text-center"><b>{{$ctrl.oTeam}}</b> performance in <b>{{$ctrl.oMatchupData.$$state.value.teamSite[0]}}</b> games since All-Star break against teams with a winning percentage similar to the <b>{{$ctrl.team}}</b> winning percentage.</h6>
+  <h6 class="help-block text-center"><b>{{$ctrl.oTeam}}</b> performance in <b>{{$ctrl.oMatchupData.teamSite[0]}}</b> games since the start of the 2018 season against teams with a winning percentage similar to the <b>{{$ctrl.team}}</b> winning percentage.</h6>
   <br>
   <div>
     <span class="text-center">
-      <h6 class="bg-info">Average Total: {{$ctrl.oMatchupData.$$state.value.aggregateData.averageTotal | number: 2}}</h6>
-      <h6 class="bg-info">Average Points Scored: {{$ctrl.oMatchupData.$$state.value.aggregateData.averagePoints | number: 2}}</h6>
-      <h6 class="bg-info">Average Spread: {{$ctrl.oMatchupData.$$state.value.aggregateData.averageSpread | number: 2}}</h6>
-      <h6 class="bg-info">Average ATS Performance: {{$ctrl.oMatchupData.$$state.value.aggregateData.averageATSPerformance | number: 2}}</h6>
+      <h6 class="bg-info">Average Total: {{$ctrl.oMatchupData.aggregateData.averageTotal | number: 2}}</h6>
+      <h6 class="bg-info">Average Points Scored: {{$ctrl.oMatchupData.aggregateData.averagePoints | number: 2}}</h6>
+      <h6 class="bg-info">Average Spread: {{$ctrl.oMatchupData.aggregateData.averageSpread | number: 2}}</h6>
+      <h6 class="bg-info">Average ATS Performance: {{$ctrl.oMatchupData.aggregateData.averageATSPerformance | number: 2}}</h6>
     </span>
   </div>
   <br>
   <span>
-    <div><label>Date</label><h6 ng-repeat="date in $ctrl.oMatchupData.$$state.value.date track by $index">{{date | dateFilter}}</h6></div>
-    <div><label>Point Spread</label><h6 ng-repeat="pointSpread in $ctrl.oMatchupData.$$state.value.pointSpread track by $index">{{pointSpread}}</h6></div>
-    <div><label>Total</label><h6 ng-repeat="total in $ctrl.oMatchupData.$$state.value.total track by $index">{{total}}</h6></div>
-    <div><label>Points</label><h6 ng-repeat="teamPoints in $ctrl.oMatchupData.$$state.value.teamPoints track by $index">{{teamPoints}}</h6></div>
-    <div><label>Opponent</label><h6 ng-repeat="oTeam in $ctrl.oMatchupData.$$state.value.oTeam track by $index">{{oTeam}}</h6></div>
-    <div><label>Opp. Points</label><h6 ng-repeat="oTeamPoints in $ctrl.oMatchupData.$$state.value.oTeamPoints track by $index">{{oTeamPoints}}</h6></div>
-    <div><label>Site</label><h6 ng-repeat="teamSite in $ctrl.oMatchupData.$$state.value.teamSite track by $index">{{teamSite}}</h6></div>
-    <div><label>Rest</label><h6 ng-repeat="teamRest in $ctrl.oMatchupData.$$state.value.teamRest track by $index">{{teamRest}}</h6></div>
-    <div><label>Opp. Rest</label><h6 ng-repeat="oTeamRest in $ctrl.oMatchupData.$$state.value.oTeamRest track by $index">{{oTeamRest}}</h6></div>
+    <div><label>Date</label><h6 ng-repeat="date in $ctrl.oMatchupData.date track by $index">{{date | dateFilter}}</h6></div>
+    <div><label>Point Spread</label><h6 ng-repeat="pointSpread in $ctrl.oMatchupData.pointSpread track by $index">{{pointSpread}}</h6></div>
+    <div><label>Total</label><h6 ng-repeat="total in $ctrl.oMatchupData.total track by $index">{{total}}</h6></div>
+    <div><label>Points</label><h6 ng-repeat="teamPoints in $ctrl.oMatchupData.teamPoints track by $index">{{teamPoints}}</h6></div>
+    <div><label>Opponent</label><h6 ng-repeat="oTeam in $ctrl.oMatchupData.oTeam track by $index">{{oTeam}}</h6></div>
+    <div><label>Opp. Points</label><h6 ng-repeat="oTeamPoints in $ctrl.oMatchupData.oTeamPoints track by $index">{{oTeamPoints}}</h6></div>
+    <div><label>Site</label><h6 ng-repeat="teamSite in $ctrl.oMatchupData.teamSite track by $index">{{teamSite}}</h6></div>
+    <div><label>Rest</label><h6 ng-repeat="teamRest in $ctrl.oMatchupData.teamRest track by $index">{{teamRest}}</h6></div>
+    <div><label>Opp. Rest</label><h6 ng-repeat="oTeamRest in $ctrl.oMatchupData.oTeamRest track by $index">{{oTeamRest}}</h6></div>
   </span>
 
 </div>

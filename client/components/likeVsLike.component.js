@@ -4,17 +4,24 @@ app.component('likeVsLike', {
   bindings: '=',
 });
 
-likeVsLikeController.$inject = ['$http', '$scope', 'apiService', '$stateParams'];
+likeVsLikeController.$inject = ['$http', '$scope', 'apiService', '$stateParams', '$state'];
 
-function likeVsLikeController($http, $scope, apiService, $stateParams) {
+function likeVsLikeController($http, $scope, apiService, $stateParams, $state) {
 
-  this.$onInit = onInit;
+  var $ctrl = this;
+
+  $ctrl.$onInit = onInit;
 
   function onInit() {
-    this.team = $stateParams.team;
-    this.oTeam = $stateParams.oTeam;
-    this.matchupData = apiService.getMatchupData($stateParams.team, $stateParams.oTeam);
-    this.oMatchupData = apiService.getMatchupData($stateParams.oTeam, $stateParams.team);
+    $ctrl.team = $stateParams.team;
+    $ctrl.oTeam = $stateParams.oTeam;
+
+    apiService.getMatchupData($stateParams.team, $stateParams.oTeam).then(function(data){
+      $ctrl.matchupData = data;
+    })
+    apiService.getMatchupData($stateParams.oTeam, $stateParams.team).then(function(data) {
+      $ctrl.oMatchupData = data;
+    })
   }
 
 }

@@ -15,8 +15,14 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider){
 
     .state({
       url: 'likeVsLike/?team&oTeam',
-      name: 'home.likeVsLike',
+      name: 'likeVsLike',
       component: 'likeVsLike'
     })
 
 });
+
+app.run(['$rootScope', '$state', '$stateParams',
+  function ($rootScope, $state, $stateParams) {
+    $rootScope.$state = $state;
+    $rootScope.$stateParams = $stateParams;
+}])

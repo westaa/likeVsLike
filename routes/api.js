@@ -13,12 +13,11 @@ var teamSites = {
   away: []
 };
 
-function monthFinder () {
-  for (var i = 0; i < monthArr.length; i++) {
-    if (monthArr[i] == monthText) {
-      month.push(numberMonthArr[i]);
-    }
-  }
+function getDate () {
+  var dt = new Date();
+  var day = dt.getDate().toString().length === 1 ? "0" + dt.getDate() : dt.getDate();
+  var date = dt.getFullYear().toString()  + (dt.getMonth() + 1).toString() + day;
+  return date;
 }
 
 function siteFinder (data) {
@@ -43,9 +42,8 @@ function isHomeTeam (team) {
 }
 
 router.get('/nba', function (req, res, next) {
-  monthFinder();
-  rp.get('http://api.sportsdatabase.com/nba/query.JSON?sdql=line%2Ctotal%2Cpoints%2Cteam%2Co%3Ateam%2Co%3Apoints%2Csite%2Crest%2Co%3Arest%2Cdate%40date%3E2018' +
-  month[0] + day +
+  rp.get('http://api.sportsdatabase.com/nba/query.JSON?sdql=line%2Ctotal%2Cpoints%2Cteam%2Co%3Ateam%2Co%3Apoints%2Csite%2Crest%2Co%3Arest%2Cdate%40date%3D' +
+  getDate() +
   '&output=json&api_key=guest').then(function(data){
     var x = data.replace(/\'/g, '"');
     var y  = JSON.parse(x);
@@ -58,7 +56,8 @@ router.get('/nba', function (req, res, next) {
 
 router.get('/nba/matchup/:team/:oTeam',
   function(req, res, next) {
-    rp.get('http://api.sportsdatabase.com/nba/query.JSON?sdql=WP%40season%3D2017%20and%20team%3D' + req.params.oTeam + '&output=json&api_key=guest').then(function(data) {
+    rp.get('http://api.sportsdatabase.com/nba/query.JSON?sdql=WP%40season%3E2017%20and%20team%3D' + req.params.oTeam + '&output=json&api_key=guest').then(function(data) {
+      console.log("DATA: ", data);
     var x = data.replace(/\'/g, '"');
     var teamWP  = JSON.parse(x).groups[0].columns[0][0];
     var high = teamWP + 10;
@@ -83,12 +82,15 @@ router.get('/nba/matchup/:team/:oTeam',
       high = teamWP + 5;
       low = teamWP -30;
     }
-    rp.get('http://api.sportsdatabase.com/nba/query.JSON?sdql=' + 'line%2Ctotal%2Cpoints%2Cteam%2Co%3Ateam%2Co%3Apoints%2Csite%2Crest%2Co%3Arest%2Cdate%40season%3D2016' + '%20and%20date%3E20180219' + '%20and%20site%3D' + isHomeTeam(req.params.team) +
+    rp.get('http://api.sportsdatabase.com/nba/query.JSON?sdql=' + 'line%2Ctotal%2Cpoints%2Cteam%2Co%3Ateam%2Co%3Apoints%2Csite%2Crest%2Co%3Arest%2Cdate%40' + 'date%3E20181015%20and%20date%3C' + getDate() + '%20and%20site%3D' + isHomeTeam(req.params.team) +
     '%20and%20team%3D' + req.params.team + '%20and%20' + 'o%3AWP%3E' + low + '%20and%20' + 'o%3AWP%3C' + high + '&output=json&api_key=guest').then(function(data) {
+      console.log("DATA: ", data);
       var x = data.replace(/\'/g, '"');
       var teamData = JSON.parse(x).groups[0].columns;
       var teamSite = teamData[6][teamData[6].length - 1];
       res.send(teamData);
+    }, function(err) {
+      console.error('ERR: ', err);
     });
   })
 });
