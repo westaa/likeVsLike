@@ -13,11 +13,14 @@ function likeVsLikeController($http, $scope, apiService, $stateParams, $state) {
   $ctrl.$onInit = onInit;
 
   function onInit() {
+    $ctrl.loading = true;
     $ctrl.team = $stateParams.team;
     $ctrl.oTeam = $stateParams.oTeam;
 
+
     apiService.getMatchupData($stateParams.team, $stateParams.oTeam).then(function(data){
       $ctrl.matchupData = data;
+      $ctrl.loading = false;
     })
     apiService.getMatchupData($stateParams.oTeam, $stateParams.team).then(function(data) {
       $ctrl.oMatchupData = data;

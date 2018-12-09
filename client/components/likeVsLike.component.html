@@ -1,3 +1,4 @@
+<h1 class="text-center" ng-show="$ctrl.loading">Loading...</h1>
 <h5 class="text-center" ng-show="$ctrl.matchupData.aggregateData.averageTotal || $ctrl.matchupData.aggregateData.oAverageTotal"><a href="/">likeVlike</a></h5>
 <div ng-show="$ctrl.matchupData.aggregateData.averageTotal || $ctrl.matchupData.aggregateData.oAverageTotal">
   <h6 class="help-block text-center"><b>{{$ctrl.team}}</b> performance in <b>{{$ctrl.matchupData.teamSite[0]}}</b> games since the start of the 2018 season against teams with a winning percentage similar to the <b>{{$ctrl.oTeam}}</b> winning percentage.</h6>
