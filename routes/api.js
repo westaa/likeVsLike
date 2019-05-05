@@ -13,12 +13,7 @@ var teamSites = {
   away: []
 };
 
-function getDate () {
-  var dt = new Date();
-  var day = dt.getDate().toString().length === 1 ? "0" + dt.getDate() : dt.getDate();
-  var date = dt.getFullYear().toString()  + (dt.getMonth() + 1).toString() + day;
-  return date;
-}
+
 
 function siteFinder (data) {
   for (var i = 0; i < data.groups[0].columns[4].length; i++) {
@@ -41,8 +36,17 @@ function isHomeTeam (team) {
   }
 }
 
+function getDate () {
+    var dt = new Date();
+    var day = dt.getDate().toString().length === 1 ? "0" + dt.getDate() : dt.getDate();
+    var month = dt.getMonth().toString().length === 1 ? "0" + (dt.getMonth() +1) : dt.getMonth() + 1;
+    var date = dt.getFullYear().toString()  + month.toString() + day.toString();
+    console.log("date", date);
+    return date;
+};
+
 router.get('/nba', function (req, res, next) {
-  rp.get('http://api.sportsdatabase.com/nba/query.JSON?sdql=line%2Ctotal%2Cpoints%2Cteam%2Co%3Ateam%2Co%3Apoints%2Csite%2Crest%2Co%3Arest%2Cdate%40date%3D' +
+  rp.get('http://sportsdatabase.com/nba/query.JSON?sdql=line%2Ctotal%2Cpoints%2Cteam%2Co%3Ateam%2Co%3Apoints%2Csite%2Crest%2Co%3Arest%2Cdate%40date%3D' +
   getDate() +
   '&output=json&api_key=guest').then(function(data){
     var x = data.replace(/\'/g, '"');
@@ -56,8 +60,8 @@ router.get('/nba', function (req, res, next) {
 
 router.get('/nba/matchup/:team/:oTeam',
   function(req, res, next) {
-    rp.get('http://api.sportsdatabase.com/nba/query.JSON?sdql=WP%40season%3E2017%20and%20team%3D' + req.params.oTeam + '&output=json&api_key=guest').then(function(data) {
-      console.log("DATA: ", data);
+    rp.get('http://sportsdatabase.com/nba/query.JSON?sdql=WP%40season%3D2018%20and%20playoffs%3D0%20and%20team%3D' + req.params.oTeam + '&output=json&api_key=guest').then(function(data) {
+      console.log("LINE 64: WINNING PERCENT: ", data);
     var x = data.replace(/\'/g, '"');
     var teamWP  = JSON.parse(x).groups[0].columns[0][0];
     var high = teamWP + 10;
@@ -71,18 +75,18 @@ router.get('/nba/matchup/:team/:oTeam',
       low = teamWP -12.5;
     }
     if (teamWP >= 65.0) {
-      high = teamWP + 10;
-      low = teamWP -15;
+      high = teamWP + 15;
+      low = teamWP -12;
     }
     if (teamWP >= 70.0) {
-      high = teamWP + 10;
-      low = teamWP -22;
+      high = teamWP + 15;
+      low = teamWP -12;
     }
     if (teamWP >= 80) {
       high = teamWP + 5;
-      low = teamWP -30;
+      low = teamWP -25;
     }
-    rp.get('http://api.sportsdatabase.com/nba/query.JSON?sdql=' + 'line%2Ctotal%2Cpoints%2Cteam%2Co%3Ateam%2Co%3Apoints%2Csite%2Crest%2Co%3Arest%2Cdate%40' + 'date%3E20181015%20and%20date%3C' + getDate() + '%20and%20site%3D' + isHomeTeam(req.params.team) +
+    rp.get('http://sportsdatabase.com/nba/query.JSON?sdql=' + 'line%2Ctotal%2Cpoints%2Cteam%2Co%3Ateam%2Co%3Apoints%2Csite%2Crest%2Co%3Arest%2Cdate%40' + 'date%3E20181015%20and%20date%3C' + getDate() + '%20and%20site%3D' + isHomeTeam(req.params.team) +
     '%20and%20team%3D' + req.params.team + '%20and%20' + 'o%3AWP%3E' + low + '%20and%20' + 'o%3AWP%3C' + high + '&output=json&api_key=guest').then(function(data) {
       console.log("DATA: ", data);
       var x = data.replace(/\'/g, '"');
